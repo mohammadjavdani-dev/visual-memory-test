@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import ThemeRegistry from '@/theme/registry';
 
 export const metadata: Metadata = {
   title: 'آزمون حافظه دیداری',
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa-IR" dir='rtl'>
-      <body>{children}</body>
+      <body>
+        <ThemeRegistry options={{ key: 'mui' }}>{children}</ThemeRegistry>
+      </body>
     </html>
   )
 }
