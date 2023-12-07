@@ -1,5 +1,5 @@
 const FourthSlide = () => {
-    return <h1>FourthSlide!</h1>
+    return null;
 }
 
 export default FourthSlide;

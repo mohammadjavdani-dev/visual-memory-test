@@ -1,5 +1,5 @@
 const EighthSlide = () => {
-    return <h1>EighthSlide!</h1>
+    return null;
 }
 
 export default EighthSlide;

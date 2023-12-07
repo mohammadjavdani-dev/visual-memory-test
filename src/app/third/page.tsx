@@ -1,5 +1,10 @@
+import { PlusSign } from "@/components/atoms";
+import { SlideContainer } from "@/components/templates";
+
 const ThirdSlide = () => {
-    return <h1>ThirdSlide!</h1>
+    return <SlideContainer>
+        <PlusSign />
+    </SlideContainer>
 }
 
 export default ThirdSlide;

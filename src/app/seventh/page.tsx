@@ -1,5 +1,10 @@
+import { PlusSign } from "@/components/atoms";
+import { SlideContainer } from "@/components/templates";
+
 const SeventhSlide = () => {
-    return <h1>SeventhSlide!</h1>
+    return <SlideContainer>
+        <PlusSign />
+    </SlideContainer>
 }
 
 export default SeventhSlide;

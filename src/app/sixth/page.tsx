@@ -1,5 +1,5 @@
 const SixthSlide = () => {
-    return <h1>SixthSlide!</h1>
+    return null;
 }
 
 export default SixthSlide;
