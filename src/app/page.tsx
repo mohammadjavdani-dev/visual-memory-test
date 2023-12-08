@@ -1,27 +1,37 @@
 "use client"
 import React, { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { TextField, Button, Typography, Grid, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useRouter } from 'next/navigation';
 
 import { SlideContainer } from '@/components/templates';
+import { CLONED_IMAGES, IMAGES } from '@/constants/images';
 import { theme } from '@/theme';
+import { generateRandomInteger } from '@/utils';
 
 interface ISingleTest {
   index: number;
   testType: 'fake' | 'real';
-  slidesTimeout: Array<number>;
+  slidesTimeout: Array<number | string>;
   secondSlideContent: 'image' | 'text';
-  testParametherType: 'goal' | 'deflection' | 'neutral'
+  testParametherType: 'goal' | 'deflection' | 'neutral';
+  sourceImageId: null | number;
+  targetImageId: null | number;
+  isCorrect: boolean;
+  reactionTimeInFifthSlide: number;
 }
 
 const SINGLE_TEST_STATE_INITIAL_VALUE: ISingleTest = {
   index: 0,
   testType: 'fake',
-  slidesTimeout: [5, 10, 15, 20, Infinity, 25, 30, 35], // Will be changed!
+  slidesTimeout: [5, 10, 15, 20, '', 25, 30, 35], // Will be changed!
   secondSlideContent: 'image',
-  testParametherType: 'goal'
+  testParametherType: 'goal',
+  sourceImageId: null,
+  targetImageId: null,
+  isCorrect: false,
+  reactionTimeInFifthSlide: 0
 };
 
 const Homepage = () => {
@@ -75,13 +85,45 @@ const Homepage = () => {
   };
 
   const handleAddTest = () => {
-    setAllTestsState([...allTestsState, { ...singleTestState, index: allTestsState.length }]);
+
+    const _singleTestState = { ...singleTestState };
+    _singleTestState.index = allTestsState.length;
+
+    if (_singleTestState.testParametherType === 'goal') {
+      const randomNum = generateRandomInteger(CLONED_IMAGES.length);
+      _singleTestState.sourceImageId = CLONED_IMAGES[randomNum].image_id;
+      _singleTestState.targetImageId = CLONED_IMAGES[randomNum].image_id;
+      CLONED_IMAGES.splice(randomNum, 1);
+    }
+
+    if (_singleTestState.testParametherType === 'deflection') {
+      const firstRandomNum = generateRandomInteger(CLONED_IMAGES.length);
+      _singleTestState.sourceImageId = CLONED_IMAGES[firstRandomNum].image_id;
+      CLONED_IMAGES.splice(firstRandomNum, 1);
+      const secondRandomNum = generateRandomInteger(CLONED_IMAGES.length);
+      _singleTestState.targetImageId = CLONED_IMAGES[secondRandomNum].image_id;
+      CLONED_IMAGES.splice(secondRandomNum, 1);
+    }
+
+    if (_singleTestState.testParametherType === 'neutral') {
+      const randomNum = generateRandomInteger(CLONED_IMAGES.length);
+      _singleTestState.targetImageId = CLONED_IMAGES[randomNum].image_id;
+      CLONED_IMAGES.splice(randomNum, 1);
+    }
+
+    setAllTestsState([...allTestsState, { ..._singleTestState }]);
     setSingleTestState({ ...SINGLE_TEST_STATE_INITIAL_VALUE });
     setPageMode('main');
   }
 
   const handleDeleteTest = (index: number) => {
     let _allTests = [...allTestsState];
+    const recoverableImagesId = [_allTests[index].sourceImageId, _allTests[index].targetImageId];
+    const remainedImagesId = new Set([...recoverableImagesId.filter(Boolean)]);
+    remainedImagesId.forEach((value) => {
+      const found = IMAGES.find((v) => v.image_id === value);
+      found && CLONED_IMAGES.push(found);
+    })
     _allTests.splice(index, 1);
     _allTests = _allTests.map((value, key) => ({
       ...value,
@@ -228,6 +270,7 @@ const Homepage = () => {
                     variant="contained"
                     color="error"
                     onClick={() => setPageMode('add-test')}
+                    disabled={!CLONED_IMAGES.length}
                   >
                     <AddRoundedIcon sx={{ fontSize: '1.5rem' }} />
                     <span style={{ lineHeight: '1rem' }}>افزودن آزمون</span>
@@ -316,7 +359,7 @@ const Homepage = () => {
                 <Typography variant="body1">نوع مولفه آزمون</Typography>
                 <RadioGroup row value={singleTestState.testParametherType} onChange={handleTestParametherTypeChange}>
                   <FormControlLabel value="goal" control={<Radio color="primary" />} label="هدف" />
-                  <FormControlLabel value="deflection" control={<Radio color="primary" />} label="انحرافی" />
+                  <FormControlLabel value="deflection" control={<Radio color="primary" />} label="انحرافی" disabled={CLONED_IMAGES.length < 2} />
                   <FormControlLabel value="neutral" control={<Radio color="primary" />} label="خنثی" />
                 </RadioGroup>
               </Grid>
