@@ -19,7 +19,7 @@ interface ISingleTest {
 const SINGLE_TEST_STATE_INITIAL_VALUE: ISingleTest = {
   index: 0,
   testType: 'fake',
-  slidesTimeout: [0, 0, 0, 0, Infinity, 0, 0, 0],
+  slidesTimeout: [5, 10, 15, 20, Infinity, 25, 30, 35], // Will be changed!
   secondSlideContent: 'image',
   testParametherType: 'goal'
 };
