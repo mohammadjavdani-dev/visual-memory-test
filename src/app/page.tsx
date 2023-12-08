@@ -3,6 +3,7 @@ import React, { FormEvent, useState } from 'react';
 import { TextField, Button, Typography, Grid, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useRouter } from 'next/navigation';
 
 import { SlideContainer } from '@/components/templates';
 import { theme } from '@/theme';
@@ -11,17 +12,21 @@ interface ISingleTest {
   index: number;
   testType: 'fake' | 'real';
   slidesTimeout: Array<number>;
-  secondSlideContent: 'image' | 'text'
+  secondSlideContent: 'image' | 'text';
+  testParametherType: 'goal' | 'deflection' | 'neutral'
 }
 
 const SINGLE_TEST_STATE_INITIAL_VALUE: ISingleTest = {
   index: 0,
   testType: 'fake',
-  slidesTimeout: Array(8).fill(0),
+  slidesTimeout: [0, 0, 0, 0, Infinity, 0, 0, 0],
   secondSlideContent: 'image',
+  testParametherType: 'goal'
 };
 
 const Homepage = () => {
+
+  const router = useRouter();
 
   const [pageMode, setPageMode] = useState('main');
 
@@ -66,6 +71,10 @@ const Homepage = () => {
     setSingleTestState({ ...singleTestState, testType: (event.target as HTMLInputElement).value as 'fake' | 'real' });
   };
 
+  const handleTestParametherTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSingleTestState({ ...singleTestState, testParametherType: (event.target as HTMLInputElement).value as 'goal' | 'deflection' | 'neutral' });
+  };
+
   const handleAddTest = () => {
     setAllTestsState([...allTestsState, { ...singleTestState, index: allTestsState.length }]);
     setSingleTestState({ ...SINGLE_TEST_STATE_INITIAL_VALUE });
@@ -85,8 +94,14 @@ const Homepage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log({ participantCode });
-    console.log({ participantGender });
+    const session = window.sessionStorage;
+    session.setItem('participant_code', participantCode);
+    session.setItem('participant_gender', participantGender);
+    session.setItem('tests', JSON.stringify(allTestsState));
+    session.setItem('used_assets', JSON.stringify([]));
+    session.setItem('inprogress_test_number', '0');
+    session.setItem('tests_count', String(allTestsState.length));
+    router.replace('/first');
   };
 
   return (
@@ -122,11 +137,21 @@ const Homepage = () => {
                         <Typography variant="body1" fontWeight="bold">محتوای اسلاید 2</Typography>
                         <Typography variant="body1">{singleTestState.secondSlideContent === 'image' ? 'تصویر' : 'متن'}</Typography>
                       </Grid>
+                      <Grid item container justifyContent="flex-start" alignItems="center" columnGap={4}>
+                        <Typography variant="body1" fontWeight="bold">نوع مولفه آزمون</Typography>
+                        <Typography variant="body1">{
+                          {
+                            'goal': 'هدف',
+                            'deflection': 'انحرافی',
+                            'neutral': 'خنثی'
+                          }[singleTestState.testParametherType]
+                        }</Typography>
+                      </Grid>
                       {
                         singleTestState.slidesTimeout.map((value, key) => (
                           <Grid key={key} item container justifyContent="flex-start" alignItems="center" columnGap={4}>
                             <Typography variant="body1" fontWeight="bold">زمان نمایش اسلاید {key + 1}</Typography>
-                            <Typography variant="body1">{value} ثانیه</Typography>
+                            <Typography variant="body1">{key !== 4 ? `${value} ثانیه` : 'تعریف نشده'}</Typography>
                           </Grid>
                         ))
                       }
@@ -174,7 +199,7 @@ const Homepage = () => {
                     />
                   </Grid>
                   <Grid item container alignItems="center" xs={6}>
-                    <Typography variant="body1">جنسیت آزمون‌دهنده</Typography>
+                    <Typography variant="body1">جنسیت شرکت‌کننده</Typography>
                     <RadioGroup row value={participantGender} onChange={handleParticipantGenderChange}>
                       <FormControlLabel value="male" control={<Radio color="primary" />} label="آقا" />
                       <FormControlLabel value="female" control={<Radio color="primary" />} label="خانم" />
@@ -197,7 +222,7 @@ const Homepage = () => {
                         allTestsState.map((value, key) => (
                           <Grid
                             key={value.index}
-                            item container justifyContent="center" alignItems="center" sx={{ width: '75px', height: '75px', backgroundColor: theme.palette.secondary.main, color: theme.palette.common.white, borderRadius: '1rem' }}
+                            item container justifyContent="center" alignItems="center" sx={{ cursor: 'pointer', width: '75px', height: '75px', backgroundColor: theme.palette.secondary.main, color: theme.palette.common.white, borderRadius: '1rem' }}
                             onClick={() => handleOpenDialog(value.index)}
                           >
                             {`آزمون ${key + 1}`}
@@ -260,6 +285,7 @@ const Homepage = () => {
                             dir: 'ltr'
                           },
                         }}
+                        disabled={index === 4}
                       />
                     </Grid>
                   ))}
@@ -293,6 +319,22 @@ const Homepage = () => {
                 <RadioGroup row value={singleTestState.testType} onChange={handleTestTypeChange}>
                   <FormControlLabel value="fake" control={<Radio color="primary" />} label="امتحانی" />
                   <FormControlLabel value="real" control={<Radio color="primary" />} label="واقعی" />
+                </RadioGroup>
+              </Grid>
+              <Grid
+                item
+                container
+                alignItems="center"
+                sx={{
+                  paddingBlock: '0.5rem',
+                  borderTop: `1px solid ${theme.palette.grey[500]}`
+                }}
+              >
+                <Typography variant="body1">نوع مولفه آزمون</Typography>
+                <RadioGroup row value={singleTestState.testParametherType} onChange={handleTestParametherTypeChange}>
+                  <FormControlLabel value="goal" control={<Radio color="primary" />} label="هدف" />
+                  <FormControlLabel value="deflection" control={<Radio color="primary" />} label="انحرافی" />
+                  <FormControlLabel value="neutral" control={<Radio color="primary" />} label="خنثی" />
                 </RadioGroup>
               </Grid>
               <Grid item container justifyContent="center" alignItems="center" columnGap={4}>
