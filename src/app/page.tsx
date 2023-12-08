@@ -31,7 +31,6 @@ const Homepage = () => {
   const [pageMode, setPageMode] = useState('main');
 
   // General info states 
-  const [participantCode, setParticipantCode] = useState('');
   const [participantGender, setParticipantGender] = useState('male');
 
   // Single test state
@@ -95,7 +94,6 @@ const Homepage = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const session = window.sessionStorage;
-    session.setItem('participant_code', participantCode);
     session.setItem('participant_gender', participantGender);
     session.setItem('tests', JSON.stringify(allTestsState));
     session.setItem('used_assets', JSON.stringify([]));
@@ -179,32 +177,17 @@ const Homepage = () => {
                 <Grid
                   item
                   container
+                  justifyContent="center"
                   alignItems="center"
                   sx={{
-                    marginBlock: '1rem',
+                    marginTop: '1.5rem',
                   }}
                 >
-                  <Grid item container alignItems="center" xs={6}>
-                    <TextField
-                      label={'کد شرکت‌کننده'}
-                      variant="standard"
-                      type="text"
-                      value={participantCode}
-                      onChange={(e) => setParticipantCode(e.target.value)}
-                      InputProps={{
-                        inputProps: {
-                          dir: 'ltr'
-                        },
-                      }}
-                    />
-                  </Grid>
-                  <Grid item container alignItems="center" xs={6}>
-                    <Typography variant="body1">جنسیت شرکت‌کننده</Typography>
-                    <RadioGroup row value={participantGender} onChange={handleParticipantGenderChange}>
-                      <FormControlLabel value="male" control={<Radio color="primary" />} label="آقا" />
-                      <FormControlLabel value="female" control={<Radio color="primary" />} label="خانم" />
-                    </RadioGroup>
-                  </Grid>
+                  <Typography variant="body1">جنسیت شرکت‌کننده</Typography>
+                  <RadioGroup row value={participantGender} onChange={handleParticipantGenderChange}>
+                    <FormControlLabel value="male" control={<Radio color="primary" />} label="آقا" />
+                    <FormControlLabel value="female" control={<Radio color="primary" />} label="خانم" />
+                  </RadioGroup>
                 </Grid>
                 {
                   allTestsState.length ?
@@ -214,7 +197,7 @@ const Homepage = () => {
                       justifyContent="center"
                       alignItems="center"
                       sx={{
-                        marginBlock: '1rem',
+                        marginTop: '1rem',
                       }}
                       gap={4}
                     >
@@ -254,7 +237,7 @@ const Homepage = () => {
                   type="submit"
                   variant="contained"
                   color="primary"
-                  disabled={!allTestsState.length || !participantCode.length}
+                  disabled={!allTestsState.length}
                 >
                   شروع ارزیابی‌ها
                 </Button>
