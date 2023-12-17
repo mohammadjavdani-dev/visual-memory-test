@@ -34,10 +34,10 @@ export const useTimer = (props: IProps): void => {
                 const session = window.sessionStorage;
                 if (slideNumber === 8) {
                     if (Number(session.getItem('tests_count')) - 1 === Number(session.getItem('inprogress_test_number'))) {
-                        router.replace('submit-results')
+                        router.replace('/submit-results')
                     } else {
                         session.setItem('inprogress_test_number', String(Number(session.getItem('inprogress_test_number')) + 1))
-                        router.replace('first')
+                        router.replace('/first')
                     }
                 } else {
                     router.replace(destination as string);

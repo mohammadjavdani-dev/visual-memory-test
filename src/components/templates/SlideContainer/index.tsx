@@ -1,8 +1,12 @@
-import { FC, PropsWithChildren } from "react";
+import { CSSProperties, FC, PropsWithChildren } from "react";
 import { Grid } from "@mui/material";
 
-export const SlideContainer: FC<PropsWithChildren> = (props) => {
-    const { children } = props;
+interface IProps extends PropsWithChildren {
+    padding?: CSSProperties['padding'];
+}
+
+export const SlideContainer: FC<IProps> = (props) => {
+    const { children, padding = "3rem" } = props;
     return (
         <Grid
             container
@@ -11,7 +15,7 @@ export const SlideContainer: FC<PropsWithChildren> = (props) => {
             component="main"
             sx={{
                 height: "100%",
-                padding: '3rem'
+                padding
             }}
         >
             {children}

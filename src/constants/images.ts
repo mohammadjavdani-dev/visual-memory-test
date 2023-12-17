@@ -1,6 +1,6 @@
 const IMAGES_PATH = '/assets/images';
 
-type TImages = {
+export type TImages = {
     image_id: number;
     image_src: string;
     image_title: string;
