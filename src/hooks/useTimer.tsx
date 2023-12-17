@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -44,5 +44,5 @@ export const useTimer = (props: IProps): void => {
                 }
             }
         }
-    }, [time]);
+    }, [destination, router, slideNumber, time]);
 }

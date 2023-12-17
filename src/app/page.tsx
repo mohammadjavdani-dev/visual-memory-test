@@ -1,5 +1,6 @@
-"use client"
-import React, { FormEvent, useState } from 'react';
+'use client';
+
+import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { TextField, Button, Typography, Grid, RadioGroup, FormControlLabel, Radio, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
@@ -25,7 +26,7 @@ interface ISingleTest {
 const SINGLE_TEST_STATE_INITIAL_VALUE: ISingleTest = {
   index: 0,
   testType: 'fake',
-  slidesTimeout: [5, 10, 15, 20, '', 25, 30, 35], // Will be changed!
+  slidesTimeout: [5, 5, 5, 5, '', 5, 5, 5], // Will be changed!
   secondSlideContent: 'image',
   testParametherType: 'goal',
   sourceImageId: null,
@@ -50,7 +51,7 @@ const Homepage = () => {
   const [allTestsState, setAllTestsState] = useState<Array<ISingleTest>>([]);
 
   // Dialog state
-  const [openDialog, setOpenDialog] = React.useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleOpenDialog = (index: number) => {
     setOpenDialog(true);
@@ -138,11 +139,17 @@ const Homepage = () => {
     const session = window.sessionStorage;
     session.setItem('participant_gender', participantGender);
     session.setItem('tests', JSON.stringify(allTestsState));
-    session.setItem('used_assets', JSON.stringify([]));
     session.setItem('inprogress_test_number', '0');
     session.setItem('tests_count', String(allTestsState.length));
     router.replace('/first');
   };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const session = window.sessionStorage;
+      session.clear();
+    }
+  }, []);
 
   return (
     <SlideContainer>

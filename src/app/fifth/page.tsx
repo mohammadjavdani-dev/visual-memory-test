@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { CircularProgress, Grid, Typography } from "@mui/material";
 import { SlideContainer } from "@/components/templates";
 import { IMAGES, TImages } from "@/constants/images";
+import { withValidSession } from "@/HOCs";
 import { ShuffleArray } from "@/utils";
 
 interface IState {
@@ -97,4 +98,4 @@ const FifthSlide = () => {
     </SlideContainer >
 }
 
-export default FifthSlide;
+export default withValidSession(FifthSlide);

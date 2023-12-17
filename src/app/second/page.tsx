@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -6,6 +6,7 @@ import { CircularProgress, Typography } from "@mui/material";
 import { SlideContainer } from "@/components/templates";
 import { IMAGES } from "@/constants/images";
 import { useTimer } from "@/hooks";
+import { withValidSession } from "@/HOCs";
 
 interface IState {
     secondSlideContent: null | 'image' | 'text';
@@ -66,4 +67,4 @@ const SecondSlide = () => {
     </>
 }
 
-export default SecondSlide;
+export default withValidSession(SecondSlide);

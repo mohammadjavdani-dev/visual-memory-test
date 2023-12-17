@@ -1,6 +1,7 @@
-'use client'
+'use client';
 
 import { useTimer } from "@/hooks";
+import { withValidSession } from "@/HOCs";
 
 const SixthSlide = () => {
     useTimer({ slideNumber: 6, destination: '/seventh' });
@@ -8,4 +9,4 @@ const SixthSlide = () => {
     return null;
 }
 
-export default SixthSlide;
+export default withValidSession(SixthSlide);
