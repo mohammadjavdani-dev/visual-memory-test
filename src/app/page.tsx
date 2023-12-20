@@ -140,7 +140,7 @@ const Homepage = () => {
     session.setItem('participant_gender', participantGender);
     session.setItem('tests', JSON.stringify(allTestsState));
     session.setItem('inprogress_test_number', '0');
-    session.setItem('tests_count', String(allTestsState.length));
+    session.setItem('test_count', String(allTestsState.length));
     router.replace('/first');
   };
 
