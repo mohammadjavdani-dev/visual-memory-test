@@ -58,40 +58,18 @@ const FifthSlide = () => {
         {
             !shuffledArray || !isMounted ?
                 <CircularProgress size={72} /> :
-                <Grid sx={{ width: '1260px', height: '450px', position: 'relative' }}>
-                    <Grid container sx={{ width: '100%', height: '100%', position: 'absolute' }}>
-                        {
-                            shuffledArray.map((value: any) => (
-                                <Grid key={value.image_id} container justifyContent="center" alignItems="center" sx={{ width: 90, height: 90 }}>
-                                    <Image src={value.image_src} width={80} height={80} alt="" />
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-                    <Grid container justifyContent="center" alignItems="center" sx={{ width: '100%', height: '100%', position: 'absolute', opacity: "0.3" }}>
-                        <Typography
-                            variant="h1"
-                            sx={{
-                                fontSize: "11rem",
-                                color: 'white',
-                                WebkitTextStrokeWidth: '5px',
-                                WebkitTextStrokeColor: '#000',
-                            }}
-                        >
-                            {IMAGES[targetImageId as number].image_title}
-                        </Typography>
-                    </Grid>
-                    <Grid container sx={{ width: '100%', height: '100%', position: 'absolute' }}>
-                        {
-                            shuffledArray.map((value: any, key) => (
-                                <Grid
-                                    key={value.image_id}
-                                    container
-                                    sx={{ width: 90, height: 90, cursor: 'pointer' }}
-                                    onClick={() => handleSelectImage(value.image_id)}
-                                ></Grid>
-                            ))
-                        }
+                <Grid container direction='column' alignItems="center">
+                    <Typography variant="h1" sx={{ color: '#006400', fontSize: '3.5rem' }}>{IMAGES[targetImageId as number].image_title}</Typography>
+                    <Grid sx={{ width: '1260px', height: '540px', marginTop: '1rem' }}>
+                        <Grid container sx={{ width: '100%', height: '100%' }}>
+                            {
+                                shuffledArray.map((value: any) => (
+                                    <Grid onClick={() => handleSelectImage(value.image_id)} key={value.image_id} container justifyContent="center" alignItems="center" sx={{ width: 90, height: 90, cursor: 'pointer' }}>
+                                        <Image src={value.image_src} width={80} height={80} alt="" />
+                                    </Grid>
+                                ))
+                            }
+                        </Grid>
                     </Grid>
                 </Grid>
         }

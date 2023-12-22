@@ -10,6 +10,7 @@ import { SlideContainer } from '@/components/templates';
 import { CLONED_IMAGES, IMAGES } from '@/constants/images';
 import { theme } from '@/theme';
 import { generateRandomInteger } from '@/utils';
+import Link from 'next/link';
 
 interface ISingleTest {
   index: number;
@@ -26,7 +27,7 @@ interface ISingleTest {
 const SINGLE_TEST_STATE_INITIAL_VALUE: ISingleTest = {
   index: 0,
   testType: 'fake',
-  slidesTimeout: [5, 5, 5, 5, '', 5, 5, 5], // Will be changed!
+  slidesTimeout: [0, 0, 0, 0, '', 0, 0, 0], // Will be changed!
   secondSlideContent: 'image',
   testParametherType: 'goal',
   sourceImageId: null,
@@ -185,7 +186,7 @@ const Homepage = () => {
                         <Typography variant="body1">{singleTestState.secondSlideContent === 'image' ? 'تصویر' : 'متن'}</Typography>
                       </Grid>
                       <Grid item container justifyContent="flex-start" alignItems="center" columnGap={4}>
-                        <Typography variant="body1" fontWeight="bold">نوع مولفه آزمون</Typography>
+                        <Typography variant="body1" fontWeight="bold">مولفه آزمون</Typography>
                         <Typography variant="body1">{
                           {
                             'goal': 'هدف',
@@ -283,14 +284,24 @@ const Homepage = () => {
                     <span style={{ lineHeight: '1rem' }}>افزودن آزمون</span>
                   </Button>
                 </Grid>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={!allTestsState.length}
-                >
-                  شروع ارزیابی‌ها
-                </Button>
+                <Grid container justifyContent="center" columnGap={8}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!allTestsState.length}
+                  >
+                    شروع ارزیابی‌ها
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="success"
+                    onClick={() => router.replace('/get-results')}
+                  >
+                    مشاهده نتایج ثبت شده
+                  </Button>
+                </Grid>
               </Grid>
             </> :
             <>
@@ -363,7 +374,7 @@ const Homepage = () => {
                   borderTop: `1px solid ${theme.palette.grey[500]}`
                 }}
               >
-                <Typography variant="body1">نوع مولفه آزمون</Typography>
+                <Typography variant="body1">مولفه آزمون</Typography>
                 <RadioGroup row value={singleTestState.testParametherType} onChange={handleTestParametherTypeChange}>
                   <FormControlLabel value="goal" control={<Radio color="primary" />} label="هدف" />
                   <FormControlLabel value="deflection" control={<Radio color="primary" />} label="انحرافی" disabled={CLONED_IMAGES.length < 2} />
@@ -393,6 +404,9 @@ const Homepage = () => {
             </>
         }
       </Grid>
+      <p style={{ color: 'gray' }}>
+        <em>توسعه یافته با <Link href="https://rastikerdar.github.io/vazirmatn/" style={{ textDecoration: 'none' }} target='_blank'>تایپوگرافی متن‌باز «وزیرمتن»</Link> اثر زنده یاد مهندس صابر راستی کردار</em>
+      </p>
     </SlideContainer>
   );
 };

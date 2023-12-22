@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { ToastContainer } from 'react-toastify';
+
 import './globals.css';
 import ThemeRegistry from '@/theme/registry';
 
 export const metadata: Metadata = {
-  title: 'آزمون حافظه دیداری',
-  description: 'پلتفرم ارزیابی آزمون حافظه دیداری',
+  title: '',
+  description: '',
 }
 
 export default function RootLayout({
@@ -15,7 +18,14 @@ export default function RootLayout({
   return (
     <html lang="fa-IR" dir='rtl'>
       <body>
-        <ThemeRegistry options={{ key: 'mui' }}>{children}</ThemeRegistry>
+        <ThemeRegistry options={{ key: 'mui' }}>
+          <>
+            {children}
+            <ToastContainer
+              position="top-center"
+            />
+          </>
+        </ThemeRegistry>
       </body>
     </html>
   )
