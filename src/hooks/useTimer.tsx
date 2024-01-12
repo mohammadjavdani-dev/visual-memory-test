@@ -38,7 +38,7 @@ export const useTimer = (props: IProps): void => {
                         session.setItem('inprogress_test_number', String(Number(session.getItem('inprogress_test_number')) + 1))
                         router.replace('/first')
                     } else if ([23, 41, 59].includes(Number(session.getItem('inprogress_test_number')))) {
-                        alert('این بخش از آزمون شما به پایان رسید. لطفا در صورت آمادگی روی دکمه OK کلیک کنید تا فاز بعدی آزمون آغاز شود.')
+                        alert('این بخش از آزمون شما به پایان رسید. لطفا در صورت آمادگی روی دکمه OK کلیک کنید تا بخش بعدی آزمون آغاز شود.')
                         session.setItem('inprogress_test_number', String(Number(session.getItem('inprogress_test_number')) + 1))
                         router.replace('/first')
                     } else if (Number(session.getItem('test_count')) - 1 === Number(session.getItem('inprogress_test_number'))) {
