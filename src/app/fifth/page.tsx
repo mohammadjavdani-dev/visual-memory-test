@@ -59,12 +59,12 @@ const FifthSlide = () => {
             !shuffledArray || !isMounted ?
                 <CircularProgress size={72} /> :
                 <Grid container direction='column' alignItems="center">
-                    <Typography variant="h1" sx={{ color: '#006400', fontSize: '3.5rem' }}>{IMAGES[targetImageId as number].image_title}</Typography>
-                    <Grid sx={{ width: '1260px', height: '540px', marginTop: '1rem' }}>
+                    <Typography variant="h1" sx={{ color: '#006400', fontSize: '2.5rem' }}>{IMAGES[targetImageId as number].image_title}</Typography>
+                    <Grid sx={{ width: '1190px', height: '595px', marginTop: '1rem' }}>
                         <Grid container sx={{ width: '100%', height: '100%' }}>
                             {
                                 shuffledArray.map((value: any) => (
-                                    <Grid onClick={() => handleSelectImage(value.image_id)} key={value.image_id} container justifyContent="center" alignItems="center" sx={{ width: 90, height: 90, cursor: 'pointer' }}>
+                                    <Grid onClick={() => handleSelectImage(value.image_id)} key={value.image_id} container justifyContent="center" alignItems="center" sx={{ width: 85, height: 85, cursor: 'pointer' }}>
                                         <Image src={value.image_src} width={80} height={80} alt="" />
                                     </Grid>
                                 ))

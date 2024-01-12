@@ -87,6 +87,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
         image_title: "نوار کاست"
     },
     {
+        image_src: `${IMAGES_PATH}/cat.png`,
+        image_title: "گربه"
+    },
+    {
         image_src: `${IMAGES_PATH}/chair.png`,
         image_title: "صندلی"
     },
@@ -147,6 +151,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
         image_title: "دسته بازی"
     },
     {
+        image_src: `${IMAGES_PATH}/girl.png`,
+        image_title: "دختر"
+    },
+    {
         image_src: `${IMAGES_PATH}/glasses.png`,
         image_title: "عینک"
     },
@@ -157,6 +165,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
     {
         image_src: `${IMAGES_PATH}/guitar.png`,
         image_title: "گیتار"
+    },
+    {
+        image_src: `${IMAGES_PATH}/hair-dryer.png`,
+        image_title: "سشوار"
     },
     {
         image_src: `${IMAGES_PATH}/hammer.png`,
@@ -185,6 +197,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
     {
         image_src: `${IMAGES_PATH}/ice-cream.png`,
         image_title: "بستنی"
+    },
+    {
+        image_src: `${IMAGES_PATH}/iron.png`,
+        image_title: "اتو لباس"
     },
     {
         image_src: `${IMAGES_PATH}/jacket.png`,
@@ -223,6 +239,14 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
         image_title: "پاکت نامه"
     },
     {
+        image_src: `${IMAGES_PATH}/lock.png`,
+        image_title: "قفل"
+    },
+    {
+        image_src: `${IMAGES_PATH}/magnet.png`,
+        image_title: "آهن ربا"
+    },
+    {
         image_src: `${IMAGES_PATH}/magnifier.png`,
         image_title: "ذره بین"
     },
@@ -239,8 +263,16 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
         image_title: "مخلوط کن"
     },
     {
+        image_src: `${IMAGES_PATH}/monkey.png`,
+        image_title: "میمون"
+    },
+    {
         image_src: `${IMAGES_PATH}/moon.png`,
         image_title: "ماه"
+    },
+    {
+        image_src: `${IMAGES_PATH}/mouse.png`,
+        image_title: "موش"
     },
     {
         image_src: `${IMAGES_PATH}/orange.png`,
@@ -249,6 +281,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
     {
         image_src: `${IMAGES_PATH}/pants.png`,
         image_title: "شلوار"
+    },
+    {
+        image_src: `${IMAGES_PATH}/pistol.png`,
+        image_title: "تفنگ"
     },
     {
         image_src: `${IMAGES_PATH}/pizza.png`,
@@ -261,6 +297,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
     {
         image_src: `${IMAGES_PATH}/pumpkin.png`,
         image_title: "کدو تنبل"
+    },
+    {
+        image_src: `${IMAGES_PATH}/rocket.png`,
+        image_title: "موشک"
     },
     {
         image_src: `${IMAGES_PATH}/ruler.png`,
@@ -279,12 +319,24 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
         image_title: "ساندویچ"
     },
     {
+        image_src: `${IMAGES_PATH}/school-bus.png`,
+        image_title: "اتوبوس"
+    },
+    {
         image_src: `${IMAGES_PATH}/scissors.png`,
         image_title: "قیچی"
     },
     {
         image_src: `${IMAGES_PATH}/scooter.png`,
         image_title: "اسکوتر"
+    },
+    {
+        image_src: `${IMAGES_PATH}/sewing-machine.png`,
+        image_title: "چرخ خیاطی"
+    },
+    {
+        image_src: `${IMAGES_PATH}/shovel.png`,
+        image_title: "بیل"
     },
     {
         image_src: `${IMAGES_PATH}/snowman.png`,
@@ -345,6 +397,10 @@ const IMAGES_WITHOUT_ID: TImagesWithoutId[] = [
     {
         image_src: `${IMAGES_PATH}/water-tap.png`,
         image_title: "شیر آب"
+    },
+    {
+        image_src: `${IMAGES_PATH}/watermelon.png`,
+        image_title: "هندوانه"
     }
 ];
 
