@@ -408,5 +408,3 @@ export const IMAGES = IMAGES_WITHOUT_ID.map((value, key) => ({
     image_id: key,
     ...value
 }));
-
-export const CLONED_IMAGES: TImages[] = IMAGES.map(a => { return { ...a } });

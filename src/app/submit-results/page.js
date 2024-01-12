@@ -16,7 +16,8 @@ const SubmitResultsPage = () => {
         const session = window.sessionStorage;
         const gender = session.getItem('participant_gender');
         const test_count = Number(session.getItem('test_count'));
-        const test_properties = JSON.parse(session.getItem('tests') ?? '[]')
+        const tests = JSON.parse(session.getItem('tests') ?? '[]').slice(6).map(value => ({ ...value, index: value.index - 6 }));
+        const test_properties = tests
             .map((value) => {
                 const [
                     first_slide_time,
