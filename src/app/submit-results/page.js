@@ -87,7 +87,7 @@ const SubmitResultsPage = () => {
                 </DialogActions>
             </Dialog>
             <Grid container direction="column" justifyContent="center" alignItems="center" rowGap={8}>
-                <Typography variant="h1">پایان آزمون</Typography>
+                <Typography variant="h1">با سپاس از همکاری شما</Typography>
                 <Grid container justifyContent="center" alignItems="center" columnGap={8}>
                     <Button
                         type="button"
