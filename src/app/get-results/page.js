@@ -41,29 +41,35 @@ const GetResultsPage = () => {
         const response = await fetch("/api/get-results");
         const data = await response.json();
         const tableData = [];
+        let fakeID = 1;
         data.data.forEach((value) => {
-          value.test_properties
-            ? value.test_properties.forEach((property, index) => {
-                tableData.push({
-                  ID: value.id,
-                  Gender: value.gender,
-                  "Test ID": `${value.gender.charAt(0).toUpperCase()}${
-                    value.id
-                  }_${index + 1}`,
-                  "Test type": property.test_type,
-                  "Reaction time": property.reaction_time,
-                  "Test component": property.test_parameter,
-                  "1st slide time": property.first_slide_time,
-                  "2nd slide time": property.second_slide_time,
-                  "3rd slide time": property.third_slide_time,
-                  "4th slide time": property.fourth_slide_time,
-                  "5th slide time": property.fifth_slide_time,
-                  "6th slide time": property.sixth_slide_time,
-                  "7th slide time": property.seventh_slide_time,
-                  "8th slide time": property.eighth_slide_time,
-                });
-              })
-            : null;
+          if (
+            value.test_properties &&
+            ![5, 25, 97, 49, 84, 101, 142].includes(value.id)
+          ) {
+            value.test_properties.forEach((property, j) => {
+              tableData.push({
+                ID: fakeID,
+                Gender: value.gender,
+                "Test ID": `${value.gender.charAt(0).toUpperCase()}${fakeID}_${
+                  j + 1
+                }`,
+                "Test type": property.test_type,
+                "Reaction time": property.reaction_time,
+                Answer: property.has_correct_answer,
+                "Test component": property.test_parameter,
+                "1st slide time": property.first_slide_time,
+                "2nd slide time": property.second_slide_time,
+                "3rd slide time": property.third_slide_time,
+                "4th slide time": property.fourth_slide_time,
+                "5th slide time": property.fifth_slide_time,
+                "6th slide time": property.sixth_slide_time,
+                "7th slide time": property.seventh_slide_time,
+                "8th slide time": property.eighth_slide_time,
+              });
+            });
+            fakeID++;
+          }
         });
         setResults(tableData);
       } catch (error) {
